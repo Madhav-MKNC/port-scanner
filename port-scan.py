@@ -1,12 +1,10 @@
 """ 
 This is a simple but very fast port scanner. It is able to scan for 10000 open ports in less than 10 seconds.
 We need to improve the accuracy.
-
 NEW FEATURE:  	get live status on a port.
 				specify it in sys.argv parameters as => 'python port-scan.py <hostname> -p<port>'
 				where <port1> is replaced by your specified port
 				full command eg: python port-scan.py localhost -p22
-
 by: Madhav MKNC
 """
 
@@ -15,6 +13,7 @@ import socket
 import sys
 from time import time as now
 from time import sleep 
+TIMEOUT = 0.1
 
 # usage
 def usage():
@@ -86,10 +85,10 @@ if __name__ == "__main__":
 			if len(sys.argv)!=4: usage()
 			live_rePORTS(sys.argv[1], sys.argv[3])
 		elif len(sys.argv) == 2:
-			TIMEOUT = int(input("[+] Set Timeout: "))
+			TIMEOUT = float(input("[+] Set Timeout: "))
 			scanports(sys.argv[1], 1, 65535)
 		elif len(sys.argv) == 4:
-			TIMEOUT = int(input("[+] Set Timeout: "))
+			TIMEOUT = float(input("[+] Set Timeout: "))
 			HOST, START, END = map(str,sys.argv[1:])
 			scanports(HOST, START, END)
 		else:
