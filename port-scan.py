@@ -35,7 +35,7 @@ def printScreen():
 def port_open(host, port):
 	try:
 		with socket.socket() as s:
-			socket.setdefaulttimeout(1)
+			socket.setdefaulttimeout(TIMEOUT)
 			connection = s.connect_ex((host, int(port)))
 			return not bool(connection)
 	except Exception as err:
@@ -86,8 +86,10 @@ if __name__ == "__main__":
 			if len(sys.argv)!=4: usage()
 			live_rePORTS(sys.argv[1], sys.argv[3])
 		elif len(sys.argv) == 2:
+			TIMEOUT = int(input("[+] Set Timeout: "))
 			scanports(sys.argv[1], 1, 65535)
 		elif len(sys.argv) == 4:
+			TIMEOUT = int(input("[+] Set Timeout: "))
 			HOST, START, END = map(str,sys.argv[1:])
 			scanports(HOST, START, END)
 		else:
